@@ -28,7 +28,6 @@ Account::Account(string name, int age, int balance)
 {
     nextaccountnumber++;
     this->account_number = nextaccountnumber;
-    cout << "next " << nextaccountnumber << endl;
     this->name = name;
     this->age = age;
     this->balance = balance;
@@ -88,9 +87,7 @@ Bank::Bank()
     {
 
         accounts.insert(pair<int, Account>(account.get_acc(), account));
-        cout << account;
         Account::nextaccountnumber = account.get_acc();
-        cout << "next " << Account::nextaccountnumber << endl;
     }
 
     in.close();
