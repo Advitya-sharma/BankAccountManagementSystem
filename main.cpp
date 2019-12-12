@@ -76,6 +76,7 @@ private:
 public:
     Bank();
     void open_account(string name, int age, int balance);
+    void find_account(int num);
 };
 
 Bank::Bank()
@@ -105,14 +106,25 @@ void Bank::open_account(string name, int age, int balance)
     }
     ou.close();
 }
+void Bank::find_account(int num)
+{
+    map<int, Account>::iterator itr = accounts.find(num);
 
+    if (itr != accounts.end())
+        cout << itr->second;
+    else
+        cout << "Account Not Found" << endl;
+}
 int main()
 {
 
     int n;
     Bank b;
     string name;
+    cout << "*******Bank Account Management System*******\n"
+         << endl;
     cout << "Enter 1 for making account" << endl;
+    cout << "Enter 2 for finding account" << endl;
     cin >> n;
     switch (n)
     {
@@ -127,6 +139,16 @@ int main()
         cout << "enter balance" << endl;
         cin >> balance;
         b.open_account(name, age, balance);
+        break;
+    }
+
+    case 2:
+    {
+        int num;
+        cout << "enter account number" << endl;
+        cin >> num;
+        b.find_account(num);
+        break;
     }
     }
 }
