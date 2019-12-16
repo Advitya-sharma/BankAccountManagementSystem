@@ -77,6 +77,9 @@ public:
     Bank();
     void open_account(string name, int age, int balance);
     void find_account(int num);
+    void delete_account(int num);
+    void view_all();
+    ~Bank();
 };
 
 Bank::Bank()
@@ -115,40 +118,94 @@ void Bank::find_account(int num)
     else
         cout << "Account Not Found" << endl;
 }
+void Bank::delete_account(int num)
+{
+    map<int, Account>::iterator itr = accounts.find(num);
+
+    if (itr != accounts.end())
+    {
+        accounts.erase(itr);
+        cout << "ACCOUNT DELETED" << endl;
+    }
+    else
+        cout << "Account Not Found" << endl;
+}
+void Bank::view_all()
+{
+
+    map<int, Account>::iterator itr = accounts.begin();
+    for (itr; itr != accounts.end(); itr++)
+    {
+        cout << itr->second << endl;
+    }
+}
+Bank::~Bank()
+{
+    ofstream out("records.txt", ios::trunc);
+    map<int, Account>::iterator itr;
+    cout << endl;
+    for (itr = accounts.begin(); itr != accounts.end(); itr++)
+    {
+        out << itr->second;
+    }
+    out.close();
+}
 int main()
 {
 
     int n;
     Bank b;
     string name;
-    cout << "*******Bank Account Management System*******\n"
-         << endl;
-    cout << "Enter 1 for making account" << endl;
-    cout << "Enter 2 for finding account" << endl;
-    cin >> n;
-    switch (n)
-    {
-    case 1:
-    {
-        int age;
-        int balance;
-        cout << "enter name" << endl;
-        cin >> name;
-        cout << "enter age" << endl;
-        cin >> age;
-        cout << "enter balance" << endl;
-        cin >> balance;
-        b.open_account(name, age, balance);
-        break;
-    }
+    string quit;
 
-    case 2:
+    do
     {
-        int num;
-        cout << "enter account number" << endl;
-        cin >> num;
-        b.find_account(num);
-        break;
-    }
-    }
+        cout << "*******Bank Account Management System*******\n"
+             << endl;
+        cout << "Enter 1 for making account" << endl;
+        cout << "Enter 2 for finding account" << endl;
+        cout << "Enter 3 for removing account" << endl;
+        cout << "Enter 4 for showing all accounts" << endl;
+        cout << "Enter 5 for Quitting" << endl;
+
+        cin >> n;
+        switch (n)
+        {
+        case 1:
+        {
+            int age;
+            int balance;
+            cout << "enter name" << endl;
+            cin >> name;
+            cout << "enter age" << endl;
+            cin >> age;
+            cout << "enter balance" << endl;
+            cin >> balance;
+            b.open_account(name, age, balance);
+            break;
+        }
+
+        case 2:
+        {
+            int num;
+            cout << "enter account number" << endl;
+            cin >> num;
+            b.find_account(num);
+            break;
+        }
+        case 3:
+        {
+            int num;
+            cout << "enter account number" << endl;
+            cin >> num;
+            b.delete_account(num);
+            break;
+        }
+        case 4:
+        {
+            b.view_all();
+            break;
+        }
+        }
+    } while (n != 5);
 }
