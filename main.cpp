@@ -162,6 +162,7 @@ int main()
     {
         cout << "*******Bank Account Management System*******\n"
              << endl;
+
         cout << "Enter 1 for making account" << endl;
         cout << "Enter 2 for finding account" << endl;
         cout << "Enter 3 for removing account" << endl;
@@ -169,6 +170,7 @@ int main()
         cout << "Enter 5 for Quitting" << endl;
 
         cin >> n;
+        cin.clear();
         switch (n)
         {
         case 1:
@@ -176,15 +178,18 @@ int main()
             int age;
             int balance;
             cout << "enter name" << endl;
+
             cin >> name;
             cout << "enter age" << endl;
+
             cin >> age;
             cout << "enter balance" << endl;
+
             cin >> balance;
             b.open_account(name, age, balance);
-            break;
         }
 
+        break;
         case 2:
         {
             int num;
