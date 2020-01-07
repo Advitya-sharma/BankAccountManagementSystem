@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
-#include <fstream>
-//#include "head.h"
+
 using namespace std;
 class Account
 {
@@ -134,6 +133,12 @@ void Bank::view_all()
 {
 
     map<int, Account>::iterator itr = accounts.begin();
+
+    if (itr == accounts.end())
+    {
+        cout << "No Account Found" << endl;
+    }
+
     for (itr; itr != accounts.end(); itr++)
     {
         cout << itr->second << endl;
@@ -160,7 +165,8 @@ int main()
 
     do
     {
-        cout << "*******Bank Account Management System*******\n"
+        cout << endl
+             << "*******Bank Account Management System*******\n"
              << endl;
 
         cout << "Enter 1 for making account" << endl;
@@ -178,14 +184,19 @@ int main()
             int age;
             int balance;
             cout << "enter name" << endl;
+            cin.sync();
+            getline(cin, name);
 
-            cin >> name;
             cout << "enter age" << endl;
 
+            cin >> ws;
             cin >> age;
+
             cout << "enter balance" << endl;
 
+            cin.clear();
             cin >> balance;
+
             b.open_account(name, age, balance);
         }
 
@@ -194,6 +205,7 @@ int main()
         {
             int num;
             cout << "enter account number" << endl;
+            cin.clear();
             cin >> num;
             b.find_account(num);
             break;
@@ -202,6 +214,7 @@ int main()
         {
             int num;
             cout << "enter account number" << endl;
+            cin.clear();
             cin >> num;
             b.delete_account(num);
             break;
